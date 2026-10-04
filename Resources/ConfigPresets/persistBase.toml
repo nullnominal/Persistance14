@@ -29,3 +29,6 @@ rib_crack_pump = 10
 [funkystation.defib]
 revive_chance = 0.7
 adrenaline_cost = 1
+
+[lookup]
+enable_server_light_tree = true # Shadekin

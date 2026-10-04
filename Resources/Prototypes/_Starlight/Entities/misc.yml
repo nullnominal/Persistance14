@@ -1,0 +1,18 @@
+- type: entity
+  parent: MobStatusEffectDebuff
+  id: StatusEffectTheDark
+  name: the dark
+  components:
+  - type: StatusEffect
+    whitelist:
+      components:
+      - MobState
+    blacklist:
+      components:
+      - Shadekin
+      - TheDarkImmune
+    maximumDuration: 2m
+  - type: DrunkStatusEffect
+  - type: DrowsinessStatusEffect
+    sleepIncident: false
+    knockdownIncident: true

@@ -38,6 +38,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Prototypes; // Starlight
 using System.Linq;
 using System.Numerics;
 
@@ -60,6 +61,7 @@ namespace Content.Server.Ghost
         [Dependency] private SharedPhysicsSystem _physics = default!;
         [Dependency] private ISharedPlayerManager _player = default!;
         [Dependency] private TransformSystem _transformSystem = default!;
+        [Dependency] private IPrototypeManager _prototypeManager = default!; // Starlight
         [Dependency] private VisibilitySystem _visibilitySystem = default!;
         [Dependency] private MetaDataSystem _metaData = default!;
         [Dependency] private MobThresholdSystem _mobThresholdSystem = default!;
@@ -634,7 +636,18 @@ namespace Content.Server.Ghost
                                       _damageable.GetTotalDamage((playerEntity.Value, damageable));
                     }
 
-                    DamageSpecifier damage = new(ProtoMan.Index(AsphyxiationDamageType), dealtDamage);
+                    // Starlight - Start
+
+                    // Do asphyxiation damage by default
+                    var damageType = _prototypeManager.Index(AsphyxiationDamageType);
+
+                    // If the species cannot take asphyxiation damage, check the damage type provided by their DeathgaspComponent
+                    // e.g. IPCs take shock damage when they deathgasp instead of asphyxiation damage
+                    if (TryComp<DeathgaspComponent>(playerEntity, out var deathgasp))
+                        damageType = _prototypeManager.Index(deathgasp.DamageType);
+
+                    DamageSpecifier damage = new(damageType, dealtDamage);
+                    // Starlight - End
 
                     _damageable.ChangeDamage(playerEntity.Value, damage, true);
                 }

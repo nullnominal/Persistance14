@@ -1,0 +1,18 @@
+- type: species
+  id: Shadekin
+  name: species-name-shadekin
+  roundStart: true
+  prototype: MobShadekin
+  defaultSkinTone: "#5a3f2d"
+  dollPrototype: AppearanceShadekin
+  skinColoration: AvaliColors
+  maleFirstNames: names_avali_first
+  femaleFirstNames: names_avali_first
+  lastNames: names_avali_packs
+  defaultSoundsBySex:
+  - MaleAvali
+  - FemaleAvali
+  - MaleAvali
+  voices:
+  - MaleAvali
+  - FemaleAvali

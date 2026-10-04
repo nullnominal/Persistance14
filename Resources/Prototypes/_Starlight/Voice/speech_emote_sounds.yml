@@ -1,4 +1,4 @@
-# Avali Sounds
+
 - type: emoteSounds
   id: MaleAvali
   params:
@@ -98,3 +98,89 @@
       path: /Audio/_Starlight/Voice/Resomi/resomi_whistle.ogg
     Chirp:
       collection: ResomiChirp
+
+
+- type: emoteSounds
+  id: MaleShadekin
+  params:
+    variation: 0.125
+  sounds:
+    Scream:
+      collection: ShadekinMaleScreams
+    Laugh:
+      collection: MaleLaugh
+    Sneeze:
+      collection: MaleSneezes
+    Cough:
+      collection: MaleCoughs
+    Yawn:
+      collection: MaleYawn
+    Snore:
+      collection: Snores
+    Sigh:
+      collection: MaleSigh
+    Crying:
+      collection: MaleCry
+    Whistle:
+      collection: Whistles
+    Weh:
+      collection: Weh
+    Hew:
+      collection: Hew
+    Gasp:
+      collection: MaleGasp
+    DefaultDeathgasp:
+      collection: MaleDeathGasp
+    Marr:
+      path: /Audio/_Starlight/Voice/Shadekin/mar.ogg
+    Wurble:
+      path: /Audio/_Starlight/Voice/Shadekin/wurble.ogg
+    Hisses:
+      collection: FelionoidHisses
+    Purr:
+      collection: FelionoidPurrs
+    Growl:
+      collection: FelionoidGrowls
+
+- type: emoteSounds
+  id: FemaleShadekin
+  params:
+    variation: 0.125
+  sounds:
+    Scream:
+      collection: ShadekinFemaleScreams
+    Laugh:
+      collection: FemaleLaugh
+    Sneeze:
+      collection: FemaleSneezes
+    Cough:
+      collection: FemaleCoughs
+    Yawn:
+      collection: FemaleYawn
+    Snore:
+      collection: Snores
+    Sigh:
+      collection: FemaleSigh
+    Crying:
+      collection: FemaleCry
+    Whistle:
+      collection: Whistles
+    Weh:
+      collection: Weh
+    Hew:
+      collection: Hew
+    Gasp:
+      collection: FemaleGasp
+    DefaultDeathgasp:
+      collection: FemaleDeathGasp
+    Marr:
+      path: /Audio/_Starlight/Voice/Shadekin/mar.ogg
+    Wurble:
+      path: /Audio/_Starlight/Voice/Shadekin/wurble.ogg
+    Hisses:
+      collection: FelionoidHisses
+    Purr:
+      collection: FelionoidPurrs
+    Growl:
+      collection: FelionoidGrowls
+

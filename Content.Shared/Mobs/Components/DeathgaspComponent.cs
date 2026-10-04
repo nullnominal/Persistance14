@@ -1,4 +1,5 @@
 using Content.Shared.Chat.Prototypes;
+using Content.Shared.Damage.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -17,4 +18,7 @@ public sealed partial class DeathgaspComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public ProtoId<EmotePrototype> Prototype = "DefaultDeathgasp";
+
+    // Starlight
+    public ProtoId<DamageTypePrototype> DamageType = "Asphyxiation";
 }

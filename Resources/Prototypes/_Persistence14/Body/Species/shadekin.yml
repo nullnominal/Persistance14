@@ -1,0 +1,368 @@
+# Biology should use hard cannon while player-based rp without regards to mechanical things should use either the hard
+# or soft cannon
+
+- type: markingsGroup
+  parent: Undergarments
+  id: Shadekin
+  limits:
+    enum.HumanoidVisualLayers.Hair:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.FacialHair:
+      limit: 1
+      onlyGroupWhitelisted: true
+      required: false
+    enum.HumanoidVisualLayers.Head:
+      limit: 1
+      required: true
+      default: [ EarsShadekin ]
+    enum.HumanoidVisualLayers.HeadSide:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.HeadTop:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.SnoutCover:
+      limit: 3
+      required: false
+    enum.HumanoidVisualLayers.Tail:
+      limit: 3
+      required: true
+      default: [ TailShadekin ]
+    enum.HumanoidVisualLayers.LArm:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.RArm:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.LHand:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.RHand:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.LLeg:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.RLeg:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.LFoot:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.RFoot:
+      limit: 2
+      required: false
+    enum.HumanoidVisualLayers.UndergarmentTop:
+      limit: 1
+      required: false
+    enum.HumanoidVisualLayers.UndergarmentBottom:
+      limit: 1
+      required: false
+
+- type: entity
+  parent: BaseSpeciesAppearance
+  id: AppearanceShadekin
+  name: Shadekin
+  components:
+  - type: InitialBody
+    organs:
+      Torso: OrganShadekinTorso
+      Head: OrganShadekinHead
+      ArmLeft: OrganShadekinArmLeft
+      ArmRight: OrganShadekinArmRight
+      HandRight: OrganShadekinHandRight
+      HandLeft: OrganShadekinHandLeft
+      LegLeft: OrganShadekinLegLeft
+      LegRight: OrganShadekinLegRight
+      FootLeft: OrganShadekinFootLeft
+      FootRight: OrganShadekinFootRight
+      Brain: OrganShadekinBrain
+      Eyes: OrganShadekinEyes
+      Tongue: OrganShadekinTongue
+      Appendix: OrganShadekinAppendix
+      Ears: OrganShadekinEars
+      Lungs: OrganShadekinLungs
+      Heart: OrganShadekinCore
+      Stomach: OrganShadekinStomach
+      Liver: OrganShadekinLiver
+      Kidneys: OrganShadekinKidneys
+  - type: HumanoidProfile
+    species: Shadekin
+  - type: Inventory
+    speciesId: Shadekin
+
+- type: entity
+  parent:
+  - AppearanceShadekin
+  - MobAtmosStandard
+  - MobFlammable
+  - MobBloodstream
+  - BaseSpeciesMob
+  - BaseMobDestructible
+  - BaseHungerThirstSlowdown
+  id: MobShadekin
+  name: Urist McDark
+  components:
+  - type: Shadekin
+    thresholds:
+      0.8: Low
+      5: Annoying
+      10: High
+      15: Extreme
+  - type: Satiation
+    satiations:
+      Hunger:
+        prototype: NormalSatiationHunger
+      Thirst:
+        prototype: NormalSatiationThirst
+  - type: Barotrauma
+    damage:
+      types:
+        Blunt: 0.50
+        Heat: 0.1
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    damage:
+      types:
+        Heat: -0.007 #so for posterity, all these values have been divided by 10 for the whole "slower metabolism" thing. The original values were 0.07 and 0.05, respectively.
+        Blunt: -0.005
+        Piercing: -0.005
+        Slash: -0.005
+
+  - type: Fingerprint
+  - type: Blindable
+  - type: FireVisuals
+    alternateState: Standing
+  - type: StunVisuals
+  - type: FootprintOwner # Funky: Footprints & Stains
+  - type: DamageVisuals
+    damageOverlayGroups:
+      Brute:
+        sprite: Mobs/Effects/brute_damage.rsi
+        color: "#ccac1f"
+      Burn:
+        sprite: Mobs/Effects/burn_damage.rsi
+  - type: Speech
+    speechSounds: Shadekin
+    speechVerb: Shadekin
+    allowedEmotes: [ 'Marr', 'Wurble', 'Purr', 'Growl', 'Hisses' ]
+  - type: Reactive
+    groups:
+      Flammable: [ Touch ]
+      Extinguish: [ Touch ]
+      Acidic: [Touch, Ingestion]
+    reactions:
+    - reagents: [Water, SpaceCleaner]
+      methods: [Touch]
+      effects:
+      - !type:WashCreamPie
+      - !type:Emote
+        emote: Hisses
+        showInChat: false
+  - type: Flammable
+    damage:
+      types:
+        Burn: 1.5
+
+  - type: ScaleVisuals
+    scale: 1.2, 1.2
+  - type: Vocal
+    sounds:
+      Male: MaleShadekin
+      Female: FemaleShadekin
+      Unsexed: MaleShadekin
+  - type: Damageable
+    damageModifierSet: Shadekin
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Weapons/pierce.ogg
+    animation: WeaponArcClaw
+    damage:
+      types:
+        Piercing: 2
+        Slash: 3
+  - type: Temperature
+    specificHeat: 85 # Large
+    currentTemperature: 310
+  - type: ThermalRegulator
+    implicitHeatRegulation: 100
+    metabolismHeat: 800
+    radiatedHeat: 100
+    sweatHeatRegulation: 2000
+    shiveringHeatRegulation: 2000
+    normalBodyTemperature: 310.15
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: SoftCritical
+      150: HardCritical
+      200: Dead
+    stateAlertDict:
+      Alive: HumanHealth
+      SoftCritical: HumanCrit
+      HardCritical: HumanCrit
+      Dead: HumanDead
+  - type: TemperatureDamage
+    heatDamageThreshold: 325
+    coldDamageThreshold: 260
+    coldDamage:
+      types:
+        Cold: 0.05 # Per second, scales with temperature & other constants
+    heatDamage:
+      types:
+        Heat: 2.5 # Per second, scales with temperature & other constants
+  - type: TemperatureProtection
+    heatingCoefficient: 1.2
+    coolingCoefficient: 3
+  - type: Bloodstream
+    bloodlossDamage:
+      types:
+        Bloodloss: 1
+    bloodlossHealDamage:
+      types:
+        Bloodloss: -0.25
+    bloodReferenceSolution:
+      reagents:
+      - ReagentId: DarkBlood
+        Quantity: 300
+  - type: Deathgasp
+    DamageType: Bloodloss
+- type: entity
+  parent: OrganBase
+  id: OrganShadekin
+  abstract: true
+  suffix: Shadekin
+
+- type: entity
+  id: OrganShadekinMetabolizer
+  abstract: true
+  components:
+  - type: Metabolizer
+    metabolizerTypes: [ Human ]
+
+- type: entity
+  parent: OrganShadekin
+  id: OrganShadekinInternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Starlight/Mobs/Species/Shadekin/organs.rsi
+
+- type: entity
+  id: OrganShadekinVisual
+  abstract: true
+  components:
+  - type: VisualOrgan
+    data:
+      sprite: _Starlight/Mobs/Species/Shadekin/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Shadekin
+
+- type: entity
+  parent: [ OrganShadekin, OrganShadekinVisual ]
+  id: OrganShadekinExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Starlight/Mobs/Species/Shadekin/parts.rsi
+
+- type: entity
+  parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganShadekinExternal ]
+  id: OrganShadekinTorso
+
+- type: entity
+  parent: [ OrganBaseHeadSexed, OrganBaseHead, OrganShadekinExternal ]
+  id: OrganShadekinHead
+  components:
+  - type: VisualOrganMarkings
+    hideableLayers:
+    - enum.HumanoidVisualLayers.Snout
+    - enum.HumanoidVisualLayers.HeadTop
+    - enum.HumanoidVisualLayers.HeadSide
+    - enum.HumanoidVisualLayers.Hair
+    - enum.HumanoidVisualLayers.FacialHair
+    dependentHidingLayers:
+      enum.HumanoidVisualLayers.Snout:
+      - enum.HumanoidVisualLayers.SnoutCover
+
+- type: entity
+  parent: [ OrganBaseArmLeft, OrganShadekinExternal ]
+  id: OrganShadekinArmLeft
+
+- type: entity
+  parent: [ OrganBaseArmRight, OrganShadekinExternal ]
+  id: OrganShadekinArmRight
+
+- type: entity
+  parent: [ OrganBaseHandLeft, OrganShadekinExternal ]
+  id: OrganShadekinHandLeft
+
+- type: entity
+  parent: [ OrganBaseHandRight, OrganShadekinExternal ]
+  id: OrganShadekinHandRight
+
+- type: entity
+  parent: [ OrganBaseLegLeft, OrganShadekinExternal ]
+  id: OrganShadekinLegLeft
+
+- type: entity
+  parent: [ OrganBaseLegRight, OrganShadekinExternal ]
+  id: OrganShadekinLegRight
+
+- type: entity
+  parent: [ OrganBaseFootLeft, OrganShadekinExternal ]
+  id: OrganShadekinFootLeft
+
+- type: entity
+  parent: [ OrganBaseFootRight, OrganShadekinExternal ]
+  id: OrganShadekinFootRight
+
+- type: entity
+  parent: [ OrganBaseBrain, OrganSpriteHumanInternal, OrganShadekinInternal ]
+  id: OrganShadekinBrain
+
+- type: entity
+  parent: [ OrganShadekinVisual, OrganBaseEyes, OrganShadekinInternal ]
+  id: OrganShadekinEyes # Needs sprites
+
+- type: entity
+  parent: [ OrganBaseTongue, OrganShadekinInternal ]
+  id: OrganShadekinTongue
+
+- type: entity
+  parent: [ OrganBaseAppendix, OrganShadekinInternal ]
+  id: OrganShadekinAppendix # Needs sprites
+
+- type: entity
+  parent: [ OrganBaseEars, OrganShadekinInternal ]
+  id: OrganShadekinEars
+
+- type: entity
+  parent: [ OrganBaseLungs, OrganShadekinInternal, OrganShadekinMetabolizer ]
+  id: OrganShadekinLungs
+
+- type: entity
+  parent: [ OrganBaseHeart, OrganShadekinInternal, OrganShadekinMetabolizer ]
+  id: OrganShadekinCore
+  components:
+  - type: OrganShadekinCore
+    damaged: false
+  - type: Sprite
+    sprite: _Starlight/Mobs/Species/Shadekin/organs.rsi
+    layers:
+    - state: core
+
+- type: entity
+  parent: [ OrganBaseStomach, OrganShadekinInternal, OrganShadekinMetabolizer ]
+  id: OrganShadekinStomach
+
+- type: entity
+  parent: [ OrganBaseLiver, OrganShadekinInternal, OrganShadekinMetabolizer ]
+  id: OrganShadekinLiver # Needs sprites
+
+- type: entity
+  parent: [ OrganBaseKidneys, OrganShadekinInternal, OrganShadekinMetabolizer]
+  id: OrganShadekinKidneys

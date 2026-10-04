@@ -1,5 +1,6 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Body.Systems;
+using Content.Server.Body.Components;
 using Content.Server.Spreader;
 using Content.Shared.Body.Components;
 using Content.Shared.Chemistry;
@@ -262,6 +263,9 @@ public sealed partial class SmokeSystem : EntitySystem
             return;
 
         var blockIngestion = _internals.AreInternalsWorking(entity);
+
+        if (!HasComp<RespiratorComponent>(entity)) // Starlight - Shadekin does not breathe and "AreInternalsWorking" does not check for that.
+            blockIngestion = true;
 
         var cloneSolution = solution.Clone();
         var availableTransfer = FixedPoint2.Min(cloneSolution.Volume, component.TransferRate);

@@ -99,3 +99,49 @@
   - trills
   - trilled
 
+- type: emote
+  id: Marr
+  name: chat-emote-name-marr
+  priority: 9
+  category: Vocal
+  available: false
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-marr"]
+  chatTriggers:
+    - marr
+    - marr.
+    - marr!
+    - marr?
+    - marrs
+    - marrs.
+    - marrs!
+    - marrs?
+
+- type: emote
+  id: Wurble
+  name: chat-emote-name-wurble
+  priority: 12
+  category: Vocal
+  available: false
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    components:
+    - BorgChassis
+  chatMessages: ["chat-emote-msg-wurble"]
+  chatTriggers:
+    - wurble
+    - wurble.
+    - wurble!
+    - wurble?
+    - wurbles
+    - wurbles.
+    - wurbles!
+    - wurbles?
+
